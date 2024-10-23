@@ -14,7 +14,13 @@ public class XMLHandler {
     private static final String USERS_FILE = "usuarios.xml";
     private static final String MESSAGES_FILE = "mensajes.xml";
 
-    // Leer usuarios del XML, si el archivo no existe, lo crea
+
+    /**
+     * Lee la lista de usuarios del archivo XML.
+     * Si el archivo no existe, lo crea con una lista vacía de usuarios.
+     * @return Lista de usuarios almacenados en el archivo XML.
+     * @throws Exception En caso de error de lectura o escritura.
+     */
     public static List<Usuario> leerUsuarios() throws Exception {
         File file = new File(USERS_FILE);
 
@@ -30,7 +36,11 @@ public class XMLHandler {
         return wrapper.getUsuarios();
     }
 
-    // Crear archivo XML vacío de usuarios
+
+    /**
+     * Crea un nuevo archivo XML vacío para almacenar usuarios.
+     * @throws Exception En caso de error al crear el archivo.
+     */
     private static void crearArchivoUsuarios() throws Exception {
         File file = new File(USERS_FILE);
         file.createNewFile();
@@ -46,7 +56,12 @@ public class XMLHandler {
         marshaller.marshal(wrapper, file);
     }
 
-    // Guardar usuario en el XML
+
+    /**
+     * Guarda un nuevo usuario en el archivo XML.
+     * @param usuario El usuario que queremos registrar.
+     * @throws Exception En caso de error al escribir en el archivo.
+     */
     public static void registrarUsuario(Usuario usuario) throws Exception {
         List<Usuario> usuarios = leerUsuarios();
         usuarios.add(usuario);
@@ -61,7 +76,13 @@ public class XMLHandler {
         marshaller.marshal(wrapper, new File(USERS_FILE));
     }
 
-    // Buscar un usuario por nombre
+
+    /**
+     * Busca un usuario por su nombre en el archivo XML.
+     * @param nombre El nombre del usuario que estamos buscando.
+     * @return El objeto Usuario si lo encontramos, o null si no existe.
+     * @throws Exception En caso de error de lectura.
+     */
     public static Usuario buscarUsuario(String nombre) throws Exception {
         List<Usuario> usuarios = leerUsuarios();
         for (Usuario usuario : usuarios) {
@@ -72,7 +93,13 @@ public class XMLHandler {
         return null;
     }
 
-    // Leer mensajes del XML
+
+    /**
+     * Lee la lista de mensajes del archivo XML.
+     * Si el archivo no existe, lo crea con una lista vacía de mensajes.
+     * @return Lista de mensajes almacenados en el archivo XML.
+     * @throws Exception En caso de error de lectura o escritura.
+     */
     public static List<Mensaje> leerMensajes() throws Exception {
         File file = new File(MESSAGES_FILE);
 
@@ -88,7 +115,10 @@ public class XMLHandler {
         return wrapper.getMensajes();
     }
 
-    // Crear archivo XML vacío de mensajes
+    /**
+     * Crea un nuevo archivo XML vacío para almacenar mensajes.
+     * @throws Exception En caso de error al crear el archivo.
+     */
     private static void crearArchivoMensajes() throws Exception {
         File file = new File(MESSAGES_FILE);
         file.createNewFile();
@@ -104,7 +134,12 @@ public class XMLHandler {
         marshaller.marshal(wrapper, file);
     }
 
-    // Guardar mensaje en el XML
+
+    /**
+     * Guarda un nuevo mensaje en el archivo XML.
+     * @param mensaje El mensaje que queremos guardar.
+     * @throws Exception En caso de error al escribir en el archivo.
+     */
     public static void enviarMensaje(Mensaje mensaje) throws Exception {
         List<Mensaje> mensajes = leerMensajes();
         mensajes.add(mensaje);
