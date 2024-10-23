@@ -6,11 +6,14 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
 
-@XmlRootElement
+@XmlRootElement(name = "usuarios")
 public class UsuarioListWrapper {
     private List<Usuario> usuarios;
 
-    @XmlElement
+    public UsuarioListWrapper() {
+    }
+
+    @XmlElement(name = "usuario")
     public List<Usuario> getUsuarios() {
         return usuarios;
     }

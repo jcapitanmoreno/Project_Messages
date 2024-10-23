@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<usuarios>
+    <usuario>
+        <contraseña>secreto123</contraseña>
+        <nombre>Juan</nombre>
+    </usuario>
+    <usuario>
+        <contraseña>miContraseñaSegura</contraseña>
+        <nombre>Maria</nombre>
+    </usuario>
+    <usuario>
+        <contraseña>user</contraseña>
+        <nombre>user</nombre>
+    </usuario>
+    <usuario>
+        <contraseña>pepe</contraseña>
+        <nombre>pepe</nombre>
+    </usuario>
+</usuarios>
