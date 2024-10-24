@@ -9,16 +9,40 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.example.Model.Entity.Mensaje;
+import org.example.Model.Entity.Usuario;
 import org.example.Model.UserSingleton.UsuarioActual;
 import org.example.Model.XMLController.XMLHandler;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ChatController {
     @FXML
     private ListView<String> usuariosList;
     @FXML
-    private TextArea mensajesArea;
+    public TextArea mensajesArea;
     @FXML
     private TextField mensajeField;
+
+    @FXML
+    public void initialize() {
+        cargarUsuarios();
+    }
+
+
+    private void cargarUsuarios() {
+        try {
+            List<Usuario> usuarios = XMLHandler.leerUsuarios();
+            for (Usuario usuario : usuarios) {
+                usuariosList.getItems().add(usuario.getNombre());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
 
 
 
@@ -41,7 +65,7 @@ public class ChatController {
 
     public static void mostrarChat(Stage stage) {
         try {
-            FXMLLoader loader = new FXMLLoader(ChatController.class.getResource("org/example/chat.fxml"));
+            FXMLLoader loader = new FXMLLoader(ChatController.class.getResource("/org/example/chat.fxml"));
             //System.out.println(ChatController.class.getResource("src/main/resources/org/example/chat.fxml"));
             Parent root = loader.load();
 

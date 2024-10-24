@@ -6,14 +6,14 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
 
-@XmlRootElement(name = "chat")
+@XmlRootElement(name = "mensajes")
 public class MensajeListWrapper {
     private List<Mensaje> mensajes;
 
     public MensajeListWrapper() {
     }
 
-    @XmlElement(name = "chat")
+    @XmlElement(name = "mensaje")
     public List<Mensaje> getMensajes() {
         return mensajes;
     }

@@ -16,4 +16,8 @@
         <contraseña>pepe</contraseña>
         <nombre>pepe</nombre>
     </usuario>
+    <usuario>
+        <contraseña>hola</contraseña>
+        <nombre>hola</nombre>
+    </usuario>
 </usuarios>
