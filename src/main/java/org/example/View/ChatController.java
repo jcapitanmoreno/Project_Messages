@@ -7,12 +7,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.example.Model.Entity.Mensaje;
 import org.example.Model.Entity.Usuario;
 import org.example.Model.UserSingleton.UsuarioActual;
 import org.example.Model.XMLController.XMLHandler;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,10 +52,8 @@ public class ChatController {
             String destinatario = usuariosList.getSelectionModel().getSelectedItem();
             String texto = mensajeField.getText();
             String fecha = java.time.LocalDateTime.now().toString();
-
             String remitente = UsuarioActual.getInstancia().getUsuario().getNombre();
             Mensaje mensaje = new Mensaje(remitente, destinatario, texto, fecha);
-
             try {
                 XMLHandler.enviarMensaje(mensaje);
                 mensajesArea.appendText(remitente + ": " + texto + "\n");
@@ -66,35 +66,33 @@ public class ChatController {
     }
     private void configurarEscuchadorUsuarios() {
         usuariosList.setOnMouseClicked(event -> {
-            if (event.getClickCount() == 2) { // Verifica si fue un doble clic
-                clearMessageArea(); // Limpiamos el área de mensajes
+            if (event.getClickCount() == 2) {
+                clearMessageArea();
                 String selectedUser = usuariosList.getSelectionModel().getSelectedItem();
-                // Aquí puedes cargar los mensajes del usuario seleccionado
                 cargarMensajes(selectedUser);
             }
         });
     }
 
-    // Método para limpiar el área de mensajes
+
     private void clearMessageArea() {
-        mensajesArea.clear(); // Limpia el contenido del TextArea
+        mensajesArea.clear();
     }
     private void cargarMensajes(String user) {
         try {
-            // Leer todos los mensajes
             List<Mensaje> mensajes = XMLHandler.leerMensajes().getMensajes();
-
-            // Limpiar el área de mensajes antes de cargar los nuevos
             mensajesArea.clear();
-
-            // Filtrar y mostrar solo los mensajes relacionados con el usuario seleccionado
             String remitente = UsuarioActual.getInstancia().getUsuario().getNombre();
             for (Mensaje mensaje : mensajes) {
-                if (mensaje.getDestinatario().equals(user) || mensaje.getRemitente().equals(user)) {
-                    mensajesArea.appendText(mensaje.getRemitente() + " a " + mensaje.getDestinatario() + ": " + mensaje.getTexto() + "\n");
+                if ((mensaje.getDestinatario().equals(user) && mensaje.getRemitente().equals(remitente)) ||
+                        (mensaje.getRemitente().equals(user) && mensaje.getDestinatario().equals(remitente)))  {
+                    if (mensaje.getRemitente().equals(remitente)) {
+                        mensajesArea.appendText("Tú: " + mensaje.getTexto() + "\n");
+                    } else {
+                        mensajesArea.appendText(user + ": " + mensaje.getTexto() + "\n");
+                    }
                 }
             }
-
         } catch (Exception e) {
             e.printStackTrace();
             mensajesArea.appendText("Error al cargar los mensajes: " + e.getMessage() + "\n");
@@ -104,13 +102,66 @@ public class ChatController {
     public static void mostrarChat(Stage stage) {
         try {
             FXMLLoader loader = new FXMLLoader(ChatController.class.getResource("/org/example/chat.fxml"));
-            //System.out.println(ChatController.class.getResource("src/main/resources/org/example/chat.fxml"));
             Parent root = loader.load();
-
             stage.setScene(new Scene(root));
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+    @FXML
+    public void volverAlLogin() {
+        try {
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/login.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) usuariosList.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    public void exportarConversacion() {
+        String usuarioSeleccionado = usuariosList.getSelectionModel().getSelectedItem();
+        if (usuarioSeleccionado == null) {
+            mensajesArea.appendText("Por favor, selecciona un usuario para exportar la conversación.\n");
+            return;
+        }
+
+        try {
+            List<Mensaje> mensajes = XMLHandler.leerMensajes().getMensajes();
+            List<Mensaje> conversacion = new ArrayList<>();
+            String remitente = UsuarioActual.getInstancia().getUsuario().getNombre();
+
+            for (Mensaje mensaje : mensajes) {
+                if ((mensaje.getDestinatario().equals(usuarioSeleccionado) && mensaje.getRemitente().equals(remitente)) ||
+                        (mensaje.getRemitente().equals(usuarioSeleccionado) && mensaje.getDestinatario().equals(remitente))) {
+                    conversacion.add(mensaje);
+                }
+            }
+
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Guardar Conversación");
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Texto (*.txt)", "*.txt"));
+            File archivo = fileChooser.showSaveDialog((Stage) mensajesArea.getScene().getWindow());
+
+            if (archivo != null) {
+                try (FileOutputStream fos = new FileOutputStream(archivo);
+                     OutputStreamWriter osw = new OutputStreamWriter(fos);
+                     PrintWriter writer = new PrintWriter(osw)) {
+
+                    for (Mensaje mensaje : conversacion) {
+                        writer.println(mensaje.getRemitente() + " a " + mensaje.getDestinatario() + ": " + mensaje.getTexto() + " (" + mensaje.getFecha() + ")");
+                    }
+                }
+                mensajesArea.appendText("Conversación exportada exitosamente a " + archivo.getAbsolutePath() + "\n");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            mensajesArea.appendText("Error al exportar la conversación: " + e.getMessage() + "\n");
         }
     }
 }

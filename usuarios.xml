@@ -20,4 +20,16 @@
         <contraseña>hola</contraseña>
         <nombre>hola</nombre>
     </usuario>
+    <usuario>
+        <contraseña>paco</contraseña>
+        <nombre>paco</nombre>
+    </usuario>
+    <usuario>
+        <contraseña>chivia</contraseña>
+        <nombre>chivia</nombre>
+    </usuario>
+    <usuario>
+        <contraseña>capi</contraseña>
+        <nombre>capi</nombre>
+    </usuario>
 </usuarios>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mensajes>
+    <mensaje>
+        <destinatario>hola</destinatario>
+        <fecha>2024-10-25T17:34:44.763405500</fecha>
+        <remitente>user</remitente>
+        <texto>que tal esta</texto>
+    </mensaje>
+    <mensaje>
+        <destinatario>hola</destinatario>
+        <fecha>2024-10-25T17:34:51.180260500</fecha>
+        <remitente>user</remitente>
+        <texto>yo bien XD</texto>
+    </mensaje>
+    <mensaje>
+        <destinatario>hola</destinatario>
+        <fecha>2024-10-25T17:35:23.921606100</fecha>
+        <remitente>hola</remitente>
+        <texto>yo tambien bien XD</texto>
+    </mensaje>
+    <mensaje>
+        <destinatario>hola</destinatario>
+        <fecha>2024-10-25T18:13:04.897068400</fecha>
+        <remitente>user</remitente>
+        <texto>muy bien por ti primo</texto>
+    </mensaje>
+    <mensaje>
+        <destinatario>user</destinatario>
+        <fecha>2024-10-25T18:13:41.299316500</fecha>
+        <remitente>hola</remitente>
+        <texto>yo que me alegro</texto>
+    </mensaje>
+    <mensaje>
+        <destinatario>user</destinatario>
+        <fecha>2024-10-25T18:13:49.732462200</fecha>
+        <remitente>hola</remitente>
+        <texto>pancrasio</texto>
+    </mensaje>
+    <mensaje>
+        <destinatario>hola</destinatario>
+        <fecha>2024-10-25T18:14:28.809474700</fecha>
+        <remitente>user</remitente>
+        <texto>pepe</texto>
+    </mensaje>
+    <mensaje>
+        <destinatario>Juan</destinatario>
+        <fecha>2024-10-25T20:18:49.574086700</fecha>
+        <remitente>chivia</remitente>
+        <texto>holiiiiiiii</texto>
+    </mensaje>
+    <mensaje>
+        <destinatario>Juan</destinatario>
+        <fecha>2024-10-25T20:18:58.994694</fecha>
+        <remitente>chivia</remitente>
+        <texto>soy chiviaaaaaaaaaa</texto>
+    </mensaje>
+    <mensaje>
+        <destinatario>chivia</destinatario>
+        <fecha>2024-10-25T20:20:13.145439700</fecha>
+        <remitente>Juan</remitente>
+        <texto>paquito el chocolatero tiriririririririirir</texto>
+    </mensaje>
+</mensajes>
