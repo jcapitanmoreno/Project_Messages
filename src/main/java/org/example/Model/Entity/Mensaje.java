@@ -2,8 +2,9 @@ package org.example.Model.Entity;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.Objects;
 
-@XmlRootElement
+@XmlRootElement(name ="Mensaje")
 public class Mensaje {
     private String remitente;
     private String destinatario;
@@ -19,23 +20,52 @@ public class Mensaje {
         this.fecha = fecha;
     }
 
-    @XmlElement
+    @XmlElement(name = "remitente")
     public String getRemitente() {
         return remitente;
     }
 
-    @XmlElement
+    @XmlElement(name = "destinatario")
     public String getDestinatario() {
         return destinatario;
     }
 
-    @XmlElement
+    @XmlElement(name = "texto")
     public String getTexto() {
         return texto;
     }
 
-    @XmlElement
+    @XmlElement(name = "fecha")
     public String getFecha() {
         return fecha;
+    }
+
+    public void setRemitente(String remitente) {
+        this.remitente = remitente;
+    }
+
+    public void setDestinatario(String destinatario) {
+        this.destinatario = destinatario;
+    }
+
+    public void setTexto(String texto) {
+        this.texto = texto;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Mensaje mensaje = (Mensaje) o;
+        return Objects.equals(fecha, mensaje.fecha);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(fecha);
     }
 }
