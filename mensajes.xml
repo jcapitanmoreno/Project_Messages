@@ -1,17 +1,75 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <mensajes>
-    <mensaje/>
-    <mensaje/>
-    <mensaje/>
-    <mensaje/>
-    <mensaje/>
-    <mensaje/>
-    <mensaje/>
-    <mensaje/>
+    <mensaje>
+        <destinatario>Juan</destinatario>
+        <fecha>2024-10-25T10:42:51.036707200</fecha>
+        <remitente>user</remitente>
+        <texto>hola que tal</texto>
+    </mensaje>
+    <mensaje>
+        <destinatario>Juan</destinatario>
+        <fecha>2024-10-25T10:43:16.330278500</fecha>
+        <remitente>user</remitente>
+        <texto>yo bien</texto>
+    </mensaje>
+    <mensaje>
+        <destinatario>Juan</destinatario>
+        <fecha>2024-10-25T10:43:42.874712800</fecha>
+        <remitente>user</remitente>
+        <texto>pedro picapiedra</texto>
+    </mensaje>
+    <mensaje>
+        <destinatario>Juan</destinatario>
+        <fecha>2024-10-25T10:44:02.160554600</fecha>
+        <remitente>user</remitente>
+        <texto></texto>
+    </mensaje>
+    <mensaje>
+        <destinatario>Juan</destinatario>
+        <fecha>2024-10-25T10:44:04.101755200</fecha>
+        <remitente>user</remitente>
+        <texto></texto>
+    </mensaje>
+    <mensaje>
+        <destinatario>Juan</destinatario>
+        <fecha>2024-10-25T10:44:04.269563800</fecha>
+        <remitente>user</remitente>
+        <texto></texto>
+    </mensaje>
+    <mensaje>
+        <destinatario>Juan</destinatario>
+        <fecha>2024-10-25T10:44:04.434851400</fecha>
+        <remitente>user</remitente>
+        <texto></texto>
+    </mensaje>
     <mensaje>
         <destinatario>hola</destinatario>
-        <fecha>2024-10-24T14:29:52.170921600</fecha>
+        <fecha>2024-10-25T10:49:24.892632700</fecha>
         <remitente>user</remitente>
-        <texto>ghodkmdkmdkmsds</texto>
+        <texto>hola que tal</texto>
+    </mensaje>
+    <mensaje>
+        <destinatario>Juan</destinatario>
+        <fecha>2024-10-25T11:24:38.343553400</fecha>
+        <remitente>user</remitente>
+        <texto>que tal estas</texto>
+    </mensaje>
+    <mensaje>
+        <destinatario>Juan</destinatario>
+        <fecha>2024-10-25T12:07:34.098652500</fecha>
+        <remitente>user</remitente>
+        <texto>holaaaa</texto>
+    </mensaje>
+    <mensaje>
+        <destinatario>hola</destinatario>
+        <fecha>2024-10-25T12:07:44.715254700</fecha>
+        <remitente>user</remitente>
+        <texto>pedro pica piedra</texto>
+    </mensaje>
+    <mensaje>
+        <destinatario>hola</destinatario>
+        <fecha>2024-10-25T12:11:20.521170100</fecha>
+        <remitente>hola</remitente>
+        <texto>pdrrrrrrrrrrrrriiiitooooo</texto>
     </mensaje>
 </mensajes>

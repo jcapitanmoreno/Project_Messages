@@ -10,6 +10,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class XMLHandler {
     private static final String USERS_FILE = "usuarios.xml";
     private static final String MESSAGES_FILE = "mensajes.xml";
@@ -43,7 +44,7 @@ public class XMLHandler {
      */
     private static void crearArchivoUsuarios() throws Exception {
         File file = new File(USERS_FILE);
-        file.createNewFile();
+
 
         List<Usuario> usuarios = new ArrayList<>();
         UsuarioListWrapper wrapper = new UsuarioListWrapper();
@@ -100,19 +101,28 @@ public class XMLHandler {
      * @return Lista de mensajes almacenados en el archivo XML.
      * @throws Exception En caso de error de lectura o escritura.
      */
-    public static List<Mensaje> leerMensajes() throws Exception {
+    public static MensajeListWrapper leerMensajes() throws Exception {
         File file = new File(MESSAGES_FILE);
 
         if (!file.exists()) {
+            System.out.println("El archivo no existe, creando uno nuevo.");
             crearArchivoMensajes();
-            return new ArrayList<>();
+            return new MensajeListWrapper();
         }
 
         JAXBContext context = JAXBContext.newInstance(MensajeListWrapper.class);
         Unmarshaller unmarshaller = context.createUnmarshaller();
-        MensajeListWrapper wrapper = (MensajeListWrapper) unmarshaller.unmarshal(file);
 
-        return wrapper.getMensajes();
+        MensajeListWrapper wrapper = null;
+
+        try {
+
+            wrapper = (MensajeListWrapper) unmarshaller.unmarshal(file);
+        } catch (Exception e) {
+            e.printStackTrace(); // Esto te dará más información sobre lo que salió mal
+        }
+
+        return wrapper;
     }
 
     /**
@@ -121,7 +131,7 @@ public class XMLHandler {
      */
     private static void crearArchivoMensajes() throws Exception {
         File file = new File(MESSAGES_FILE);
-        file.createNewFile();
+
 
         List<Mensaje> mensajes = new ArrayList<>();
         MensajeListWrapper wrapper = new MensajeListWrapper();
@@ -141,17 +151,16 @@ public class XMLHandler {
      * @throws Exception En caso de error al escribir en el archivo.
      */
     public static void enviarMensaje(Mensaje mensaje) throws Exception {
-        List<Mensaje> mensajes = leerMensajes();
-        mensajes.add(mensaje);
+        MensajeListWrapper mensajes = leerMensajes();
+        mensajes.getMensajes().add(mensaje);
 
         JAXBContext context = JAXBContext.newInstance(MensajeListWrapper.class);
         Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
-        MensajeListWrapper wrapper = new MensajeListWrapper();
-        wrapper.setMensajes(mensajes);
 
-        marshaller.marshal(wrapper, new File(MESSAGES_FILE));
+
+        marshaller.marshal(mensajes, new File(MESSAGES_FILE));
     }
 
 }
