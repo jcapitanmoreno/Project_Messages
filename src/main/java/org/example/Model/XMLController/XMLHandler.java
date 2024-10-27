@@ -17,150 +17,147 @@ public class XMLHandler {
 
 
     /**
-     * Lee la lista de usuarios del archivo XML.
-     * Si el archivo no existe, lo crea con una lista vacía de usuarios.
-     * @return Lista de usuarios almacenados en el archivo XML.
+     * Lee la lista de usuarios desde el archivo XML. Si el archivo no existe, lo crea
+     * y retorna una lista vacía.
+     *
+     * @return Lista de objetos Usuario almacenados en el archivo XML.
      * @throws Exception En caso de error de lectura o escritura.
      */
     public static List<Usuario> leerUsuarios() throws Exception {
         File file = new File(USERS_FILE);
-
         if (!file.exists()) {
             crearArchivoUsuarios();
             return new ArrayList<>();
         }
 
-        JAXBContext context = JAXBContext.newInstance(UsuarioListWrapper.class);
-        Unmarshaller unmarshaller = context.createUnmarshaller();
-        UsuarioListWrapper wrapper = (UsuarioListWrapper) unmarshaller.unmarshal(file);
-
-        return wrapper.getUsuarios();
+        return (List<Usuario>) leerDesdeArchivo(file, UsuarioListWrapper.class).getUsuarios();
     }
 
-
     /**
-     * Crea un nuevo archivo XML vacío para almacenar usuarios.
-     * @throws Exception En caso de error al crear el archivo.
+     * Crea un archivo XML vacío para almacenar usuarios si no existe ya uno.
+     *
+     * @throws Exception En caso de error al crear o escribir en el archivo.
      */
     private static void crearArchivoUsuarios() throws Exception {
-        File file = new File(USERS_FILE);
-
-
-        List<Usuario> usuarios = new ArrayList<>();
         UsuarioListWrapper wrapper = new UsuarioListWrapper();
-        wrapper.setUsuarios(usuarios);
-
-        JAXBContext context = JAXBContext.newInstance(UsuarioListWrapper.class);
-        Marshaller marshaller = context.createMarshaller();
-        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-
-        marshaller.marshal(wrapper, file);
+        wrapper.setUsuarios(new ArrayList<>());
+        escribirEnArchivo(USERS_FILE, wrapper, UsuarioListWrapper.class);
     }
 
-
     /**
-     * Guarda un nuevo usuario en el archivo XML.
-     * @param usuario El usuario que queremos registrar.
-     * @throws Exception En caso de error al escribir en el archivo.
+     * Agrega un nuevo usuario al archivo XML de usuarios, conservando los usuarios ya
+     * existentes.
+     *
+     * @param usuario El objeto Usuario a registrar.
+     * @throws Exception En caso de error al leer o escribir en el archivo.
      */
     public static void registrarUsuario(Usuario usuario) throws Exception {
         List<Usuario> usuarios = leerUsuarios();
         usuarios.add(usuario);
 
-        JAXBContext context = JAXBContext.newInstance(UsuarioListWrapper.class);
-        Marshaller marshaller = context.createMarshaller();
-        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-
         UsuarioListWrapper wrapper = new UsuarioListWrapper();
         wrapper.setUsuarios(usuarios);
-
-        marshaller.marshal(wrapper, new File(USERS_FILE));
+        escribirEnArchivo(USERS_FILE, wrapper, UsuarioListWrapper.class);
     }
 
-
     /**
-     * Busca un usuario por su nombre en el archivo XML.
-     * @param nombre El nombre del usuario que estamos buscando.
-     * @return El objeto Usuario si lo encontramos, o null si no existe.
-     * @throws Exception En caso de error de lectura.
+     * Busca un usuario en el archivo XML por su nombre.
+     *
+     * @param nombre El nombre del usuario a buscar.
+     * @return El objeto Usuario encontrado, o null si no existe.
+     * @throws Exception En caso de error de lectura del archivo.
      */
     public static Usuario buscarUsuario(String nombre) throws Exception {
-        List<Usuario> usuarios = leerUsuarios();
-        for (Usuario usuario : usuarios) {
-            if (usuario.getNombre().equals(nombre)) {
-                return usuario;
-            }
-        }
-        return null;
+        return leerUsuarios().stream()
+                .filter(usuario -> usuario.getNombre().equals(nombre))
+                .findFirst()
+                .orElse(null);
     }
 
 
+
+
+    //Mensajes
+
+
     /**
-     * Lee la lista de mensajes del archivo XML.
-     * Si el archivo no existe, lo crea con una lista vacía de mensajes.
-     * @return Lista de mensajes almacenados en el archivo XML.
+     * Lee la lista de mensajes desde el archivo XML. Si el archivo no existe, lo crea
+     * y retorna un objeto MensajeListWrapper vacío.
+     *
+     * @return Objeto MensajeListWrapper que contiene la lista de mensajes.
      * @throws Exception En caso de error de lectura o escritura.
      */
     public static MensajeListWrapper leerMensajes() throws Exception {
         File file = new File(MESSAGES_FILE);
-
         if (!file.exists()) {
-            System.out.println("El archivo no existe, creando uno nuevo.");
             crearArchivoMensajes();
             return new MensajeListWrapper();
         }
 
-        JAXBContext context = JAXBContext.newInstance(MensajeListWrapper.class);
-        Unmarshaller unmarshaller = context.createUnmarshaller();
-
-        MensajeListWrapper wrapper = null;
-
-        try {
-
-            wrapper = (MensajeListWrapper) unmarshaller.unmarshal(file);
-        } catch (Exception e) {
-            e.printStackTrace(); // Esto te dará más información sobre lo que salió mal
-        }
-
-        return wrapper;
+        return (MensajeListWrapper) leerDesdeArchivo(file, MensajeListWrapper.class);
     }
 
     /**
-     * Crea un nuevo archivo XML vacío para almacenar mensajes.
-     * @throws Exception En caso de error al crear el archivo.
+     * Crea un archivo XML vacío para almacenar mensajes si no existe ya uno.
+     *
+     * @throws Exception En caso de error al crear o escribir en el archivo.
      */
     private static void crearArchivoMensajes() throws Exception {
-        File file = new File(MESSAGES_FILE);
-
-
-        List<Mensaje> mensajes = new ArrayList<>();
         MensajeListWrapper wrapper = new MensajeListWrapper();
-        wrapper.setMensajes(mensajes);
-
-        JAXBContext context = JAXBContext.newInstance(MensajeListWrapper.class);
-        Marshaller marshaller = context.createMarshaller();
-        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-
-        marshaller.marshal(wrapper, file);
+        wrapper.setMensajes(new ArrayList<>());
+        escribirEnArchivo(MESSAGES_FILE, wrapper, MensajeListWrapper.class);
     }
 
 
     /**
-     * Guarda un nuevo mensaje en el archivo XML.
-     * @param mensaje El mensaje que queremos guardar.
-     * @throws Exception En caso de error al escribir en el archivo.
+     * Agrega un nuevo mensaje al archivo XML de mensajes, conservando los mensajes ya
+     * existentes.
+     *
+     * @param mensaje El objeto Mensaje a almacenar.
+     * @throws Exception En caso de error al leer o escribir en el archivo.
      */
     public static void enviarMensaje(Mensaje mensaje) throws Exception {
-        MensajeListWrapper mensajes = leerMensajes();
-        mensajes.getMensajes().add(mensaje);
+        MensajeListWrapper mensajesWrapper = leerMensajes();
+        mensajesWrapper.getMensajes().add(mensaje);
+        escribirEnArchivo(MESSAGES_FILE, mensajesWrapper, MensajeListWrapper.class);
+    }
 
-        JAXBContext context = JAXBContext.newInstance(MensajeListWrapper.class);
+
+
+
+    // Utilidades de Lectura y Escritura
+
+    /**
+     * Método genérico para leer datos desde un archivo XML, que puede utilizarse tanto
+     * para leer usuarios como mensajes.
+     *
+     * @param <T> Tipo del objeto wrapper que encapsula los datos.
+     * @param file Archivo XML desde el cual se leerán los datos.
+     * @param wrapperClass Clase del objeto wrapper que encapsula los datos.
+     * @return Objeto del tipo especificado con los datos leídos.
+     * @throws Exception En caso de error de lectura del archivo.
+     */
+    private static <T> T leerDesdeArchivo(File file, Class<T> wrapperClass) throws Exception {
+        JAXBContext context = JAXBContext.newInstance(wrapperClass);
+        Unmarshaller unmarshaller = context.createUnmarshaller();
+        return wrapperClass.cast(unmarshaller.unmarshal(file));
+    }
+
+    /**
+     * Método genérico para escribir datos en un archivo XML, que puede utilizarse tanto
+     * para escribir usuarios como mensajes.
+     *
+     * @param <T> Tipo del objeto wrapper que encapsula los datos.
+     * @param filePath Ruta del archivo donde se escribirán los datos.
+     * @param data Datos a escribir en el archivo.
+     * @param wrapperClass Clase del objeto wrapper que encapsula los datos.
+     * @throws Exception En caso de error al escribir en el archivo.
+     */
+    private static <T> void escribirEnArchivo(String filePath, T data, Class<T> wrapperClass) throws Exception {
+        JAXBContext context = JAXBContext.newInstance(wrapperClass);
         Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-
-
-
-        marshaller.marshal(mensajes, new File(MESSAGES_FILE));
+        marshaller.marshal(data, new File(filePath));
     }
 
 }

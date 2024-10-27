@@ -60,4 +60,22 @@
         <remitente>Juan</remitente>
         <texto>paquito el chocolatero tiriririririririirir</texto>
     </mensaje>
+    <mensaje>
+        <destinatario>capi</destinatario>
+        <fecha>2024-10-27T13:45:48.367832600</fecha>
+        <remitente>pepe</remitente>
+        <texto>hola</texto>
+    </mensaje>
+    <mensaje>
+        <destinatario>capi</destinatario>
+        <fecha>2024-10-27T13:45:51.885775600</fecha>
+        <remitente>pepe</remitente>
+        <texto>dadadadadadada</texto>
+    </mensaje>
+    <mensaje>
+        <destinatario>capi</destinatario>
+        <fecha>2024-10-27T13:45:55.985728400</fecha>
+        <remitente>pepe</remitente>
+        <texto>adadadadadfgsdgsgfswg</texto>
+    </mensaje>
 </mensajes>
