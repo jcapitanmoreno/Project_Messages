@@ -2,6 +2,7 @@ package org.example.XMLController;
 
 import org.example.Model.Entity.Mensaje;
 import org.example.Model.Entity.Usuario;
+import org.example.Utils.FileHandler;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
@@ -9,6 +10,7 @@ import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
 
 
 public class XMLHandler {
@@ -30,9 +32,10 @@ public class XMLHandler {
             return new ArrayList<>();
         }
 
-        return (List<Usuario>) leerDesdeArchivo(file, UsuarioListWrapper.class).getUsuarios();
-    }
 
+        UsuarioListWrapper wrapper = FileHandler.leerDesdeArchivo(file, UsuarioListWrapper.class);
+        return wrapper.getUsuarios();
+    }
     /**
      * Crea un archivo XML vacío para almacenar usuarios si no existe ya uno.
      *
@@ -41,7 +44,7 @@ public class XMLHandler {
     private static void crearArchivoUsuarios() throws Exception {
         UsuarioListWrapper wrapper = new UsuarioListWrapper();
         wrapper.setUsuarios(new ArrayList<>());
-        escribirEnArchivo(USERS_FILE, wrapper, UsuarioListWrapper.class);
+        FileHandler.escribirEnArchivo(USERS_FILE, wrapper, UsuarioListWrapper.class);  // Uso de FileHandler
     }
 
     /**
@@ -57,7 +60,7 @@ public class XMLHandler {
 
         UsuarioListWrapper wrapper = new UsuarioListWrapper();
         wrapper.setUsuarios(usuarios);
-        escribirEnArchivo(USERS_FILE, wrapper, UsuarioListWrapper.class);
+        FileHandler.escribirEnArchivo(USERS_FILE, wrapper, UsuarioListWrapper.class);
     }
 
     /**
@@ -94,7 +97,7 @@ public class XMLHandler {
             return new MensajeListWrapper();
         }
 
-        return (MensajeListWrapper) leerDesdeArchivo(file, MensajeListWrapper.class);
+        return (MensajeListWrapper) FileHandler.leerDesdeArchivo(file, MensajeListWrapper.class);
     }
 
     /**
@@ -105,7 +108,7 @@ public class XMLHandler {
     private static void crearArchivoMensajes() throws Exception {
         MensajeListWrapper wrapper = new MensajeListWrapper();
         wrapper.setMensajes(new ArrayList<>());
-        escribirEnArchivo(MESSAGES_FILE, wrapper, MensajeListWrapper.class);
+        FileHandler.escribirEnArchivo(MESSAGES_FILE, wrapper, MensajeListWrapper.class);
     }
 
 
@@ -119,45 +122,10 @@ public class XMLHandler {
     public static void enviarMensaje(Mensaje mensaje) throws Exception {
         MensajeListWrapper mensajesWrapper = leerMensajes();
         mensajesWrapper.getMensajes().add(mensaje);
-        escribirEnArchivo(MESSAGES_FILE, mensajesWrapper, MensajeListWrapper.class);
+        FileHandler.escribirEnArchivo(MESSAGES_FILE, mensajesWrapper, MensajeListWrapper.class);
     }
 
 
 
-
-    // Utilidades de Lectura y Escritura
-
-    /**
-     * Método genérico para leer datos desde un archivo XML, que puede utilizarse tanto
-     * para leer usuarios como mensajes.
-     *
-     * @param <T> Tipo del objeto wrapper que encapsula los datos.
-     * @param file Archivo XML desde el cual se leerán los datos.
-     * @param wrapperClass Clase del objeto wrapper que encapsula los datos.
-     * @return Objeto del tipo especificado con los datos leídos.
-     * @throws Exception En caso de error de lectura del archivo.
-     */
-    private static <T> T leerDesdeArchivo(File file, Class<T> wrapperClass) throws Exception {
-        JAXBContext context = JAXBContext.newInstance(wrapperClass);
-        Unmarshaller unmarshaller = context.createUnmarshaller();
-        return wrapperClass.cast(unmarshaller.unmarshal(file));
-    }
-
-    /**
-     * Método genérico para escribir datos en un archivo XML, que puede utilizarse tanto
-     * para escribir usuarios como mensajes.
-     *
-     * @param <T> Tipo del objeto wrapper que encapsula los datos.
-     * @param filePath Ruta del archivo donde se escribirán los datos.
-     * @param data Datos a escribir en el archivo.
-     * @param wrapperClass Clase del objeto wrapper que encapsula los datos.
-     * @throws Exception En caso de error al escribir en el archivo.
-     */
-    private static <T> void escribirEnArchivo(String filePath, T data, Class<T> wrapperClass) throws Exception {
-        JAXBContext context = JAXBContext.newInstance(wrapperClass);
-        Marshaller marshaller = context.createMarshaller();
-        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-        marshaller.marshal(data, new File(filePath));
-    }
 
 }

@@ -126,4 +126,10 @@
         <remitente>user</remitente>
         <texto>prueba</texto>
     </mensaje>
+    <mensaje>
+        <destinatario>user</destinatario>
+        <fecha>2024-10-28T19:50:20.590267100</fecha>
+        <remitente>user</remitente>
+        <texto>prueba 2</texto>
+    </mensaje>
 </mensajes>
