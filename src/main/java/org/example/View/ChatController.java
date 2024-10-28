@@ -172,48 +172,90 @@ public class ChatController {
     }
 
     /**
-     * Exporta la conversación entre el usuario actual y el usuario seleccionado
-     * a un archivo de texto. Si no hay usuario seleccionado, muestra un mensaje de error.
+     * Método que exporta la conversación con un usuario seleccionado a un archivo de texto.
      */
     @FXML
     public void exportarConversacion() {
-        String usuarioSeleccionado = usuariosList.getSelectionModel().getSelectedItem();
+        String usuarioSeleccionado = obtenerUsuarioSeleccionado();
         if (usuarioSeleccionado == null) {
-            mensajesArea.appendText("Por favor, selecciona un usuario para exportar la conversación.\n");
             return;
         }
 
         try {
-            List<Mensaje> mensajes = XMLHandler.leerMensajes().getMensajes();
-            List<Mensaje> conversacion = new ArrayList<>();
-            String remitente = UsuarioActual.getInstancia().getUsuario().getNombre();
-
-            for (Mensaje mensaje : mensajes) {
-                if ((mensaje.getDestinatario().equals(usuarioSeleccionado) && mensaje.getRemitente().equals(remitente)) ||
-                        (mensaje.getRemitente().equals(usuarioSeleccionado) && mensaje.getDestinatario().equals(remitente))) {
-                    conversacion.add(mensaje);
-                }
-            }
-
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Guardar Conversación");
-            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Texto (*.txt)", "*.txt"));
-            File archivo = fileChooser.showSaveDialog((Stage) mensajesArea.getScene().getWindow());
+            List<Mensaje> conversacion = obtenerConversacion(usuarioSeleccionado);
+            File archivo = seleccionarArchivoParaGuardar();
 
             if (archivo != null) {
-                try (FileOutputStream fos = new FileOutputStream(archivo);
-                     OutputStreamWriter osw = new OutputStreamWriter(fos);
-                     PrintWriter writer = new PrintWriter(osw)) {
-
-                    for (Mensaje mensaje : conversacion) {
-                        writer.println(mensaje.getRemitente() + " a " + mensaje.getDestinatario() + ": " + mensaje.getTexto() + " (" + mensaje.getFecha() + ")");
-                    }
-                }
+                guardarConversacionEnArchivo(conversacion, archivo);
                 mensajesArea.appendText("Conversación exportada exitosamente a " + archivo.getAbsolutePath() + "\n");
             }
         } catch (Exception e) {
             e.printStackTrace();
             mensajesArea.appendText("Error al exportar la conversación: " + e.getMessage() + "\n");
+        }
+    }
+
+    /**
+     * Método auxiliar que obtiene el usuario actualmente seleccionado en la lista.
+     *
+     * @return El nombre del usuario seleccionado o null si no hay selección.
+     */
+    private String obtenerUsuarioSeleccionado() {
+        String usuarioSeleccionado = usuariosList.getSelectionModel().getSelectedItem();
+        if (usuarioSeleccionado == null) {
+            mensajesArea.appendText("Por favor, selecciona un usuario para exportar la conversación.\n");
+        }
+        return usuarioSeleccionado;
+    }
+
+    /**
+     * Método que obtiene la conversación entre el usuario actual y el usuario seleccionado.
+     *
+     * @param usuarioSeleccionado El nombre del usuario con el que se está conversando.
+     * @return Una lista de objetos Mensaje que representan la conversación.
+     * @throws Exception En caso de error al leer los mensajes.
+     */
+    private List<Mensaje> obtenerConversacion(String usuarioSeleccionado) throws Exception {
+        List<Mensaje> mensajes = XMLHandler.leerMensajes().getMensajes();
+        List<Mensaje> conversacion = new ArrayList<>();
+        String remitente = UsuarioActual.getInstancia().getUsuario().getNombre();
+
+        for (Mensaje mensaje : mensajes) {
+            if ((mensaje.getDestinatario().equals(usuarioSeleccionado) && mensaje.getRemitente().equals(remitente)) ||
+                    (mensaje.getRemitente().equals(usuarioSeleccionado) && mensaje.getDestinatario().equals(remitente))) {
+                conversacion.add(mensaje);
+            }
+        }
+        return conversacion;
+    }
+
+    /**
+     * Método que abre un cuadro de diálogo para seleccionar el archivo donde se guardará la conversación.
+     *
+     * @return El archivo seleccionado por el usuario o null si se cancela.
+     */
+    private File seleccionarArchivoParaGuardar() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Guardar Conversación");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Texto (*.txt)", "*.txt"));
+        return fileChooser.showSaveDialog((Stage) mensajesArea.getScene().getWindow());
+    }
+
+    /**
+     * Método que guarda la conversación en un archivo de texto.
+     *
+     * @param conversacion La lista de mensajes que forman la conversación a guardar.
+     * @param archivo      El archivo en el que se guardará la conversación.
+     * @throws IOException En caso de error al escribir en el archivo.
+     */
+    private void guardarConversacionEnArchivo(List<Mensaje> conversacion, File archivo) throws IOException {
+        try (FileOutputStream fos = new FileOutputStream(archivo);
+             OutputStreamWriter osw = new OutputStreamWriter(fos);
+             PrintWriter writer = new PrintWriter(osw)) {
+
+            for (Mensaje mensaje : conversacion) {
+                writer.println(mensaje.getRemitente() + " a " + mensaje.getDestinatario() + ": " + mensaje.getTexto() + " (" + mensaje.getFecha() + ")");
+            }
         }
     }
 
@@ -310,9 +352,9 @@ public class ChatController {
      * Construye el análisis de la conversación, que incluye el total de mensajes,
      * el conteo de mensajes por usuario, y las palabras más repetidas.
      *
-     * @param totalMensajes El número total de mensajes en la conversación.
+     * @param totalMensajes      El número total de mensajes en la conversación.
      * @param mensajesPorUsuario Mapa de conteo de mensajes por usuario.
-     * @param palabrasRepetidas Mapa de las palabras más repetidas en la conversación.
+     * @param palabrasRepetidas  Mapa de las palabras más repetidas en la conversación.
      * @return Un StringBuilder que contiene el análisis detallado de la conversación.
      */
     private StringBuilder construirResultadoAnalisis(long totalMensajes, Map<String, Long> mensajesPorUsuario, Map<String, Long> palabrasRepetidas) {

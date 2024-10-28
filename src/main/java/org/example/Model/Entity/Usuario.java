@@ -6,14 +6,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class Usuario {
     private String nombre;
-    private String contraseña;
+    private String contrasena;
 
     public Usuario() {
     }
 
-    public Usuario(String nombre, String contraseña) {
+    public Usuario(String nombre, String contrasena) {
         this.nombre = nombre;
-        this.contraseña = contraseña;
+        this.contrasena = contrasena;
     }
 
     @XmlElement
@@ -26,11 +26,11 @@ public class Usuario {
     }
 
     @XmlElement
-    public String getContraseña() {
-        return contraseña;
+    public String getContrasena() {
+        return contrasena;
     }
 
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
     }
 }

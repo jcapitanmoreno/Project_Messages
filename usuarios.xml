@@ -1,39 +1,42 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <usuarios>
     <usuario>
-        <contraseña>secreto123</contraseña>
-        <nombre>Juan</nombre>
+        <contrasena>da30e45705f79aa7555b538e098d0ab284fbc6c890f92ed8ad1722b63aa69201</contrasena>
+        <nombre>yoyo</nombre>
     </usuario>
     <usuario>
-        <contraseña>miContraseñaSegura</contraseña>
-        <nombre>Maria</nombre>
-    </usuario>
-    <usuario>
-        <contraseña>user</contraseña>
+        <contrasena>04f8996da763b7a969b1028ee3007569eaf3a635486ddab211d512c85b9df8fb</contrasena>
         <nombre>user</nombre>
     </usuario>
     <usuario>
-        <contraseña>pepe</contraseña>
-        <nombre>pepe</nombre>
-    </usuario>
-    <usuario>
-        <contraseña>hola</contraseña>
-        <nombre>hola</nombre>
-    </usuario>
-    <usuario>
-        <contraseña>paco</contraseña>
         <nombre>paco</nombre>
     </usuario>
     <usuario>
-        <contraseña>chivia</contraseña>
-        <nombre>chivia</nombre>
+        <contrasena>076a89c23179cedfc61171fe400ecf01fb76b9a48a68fb82dd0cd688d684d900</contrasena>
+        <nombre>fernando</nombre>
     </usuario>
     <usuario>
-        <contraseña>capi</contraseña>
-        <nombre>capi</nombre>
+        <contrasena>14bbd20092aaf0b96b57858fed3f60708f474c3706fda949a053ec6a26bdab23</contrasena>
+        <nombre>franfurias</nombre>
     </usuario>
     <usuario>
-        <contraseña>0a041b9462caa4a31bac3567e0b6e6fd9100787db2ab433d96f6d178cabfce90</contraseña>
-        <nombre>user1</nombre>
+        <contrasena>328192284b1aadafe1063635bd09c83ca83de3654fba4752a451aee3c513bc57</contrasena>
+        <nombre>madason</nombre>
+    </usuario>
+    <usuario>
+        <contrasena>4420bcc541dc14fb1d2a161d94605d8555b0c46d0500d0a39f315f30e20d3847</contrasena>
+        <nombre>wuanda</nombre>
+    </usuario>
+    <usuario>
+        <contrasena>324ca5355e9d7d5f60fb23b379f5bad7d4a12013a8b89b46ec2392c3021d3a27</contrasena>
+        <nombre>santi</nombre>
+    </usuario>
+    <usuario>
+        <contrasena>7ec8e739aee52da44be6fb053ba0f85e3c495ed2ab263d4ee0c350b77cae7aaf</contrasena>
+        <nombre>PerroSanches</nombre>
+    </usuario>
+    <usuario>
+        <contrasena>6025d18fe48abd45168528f18a82e265dd98d421a7084aa09f61b341703901a3</contrasena>
+        <nombre>user2</nombre>
     </usuario>
 </usuarios>

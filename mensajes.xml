@@ -84,4 +84,46 @@
         <remitente>user</remitente>
         <texto>hola hola hola hola hgoola,.m</texto>
     </mensaje>
+    <mensaje>
+        <destinatario>fernando</destinatario>
+        <fecha>2024-10-28T16:51:32.658829600</fecha>
+        <remitente>user</remitente>
+        <texto>Como estas fernan</texto>
+    </mensaje>
+    <mensaje>
+        <destinatario>fernando</destinatario>
+        <fecha>2024-10-28T16:52:41.278715400</fecha>
+        <remitente>user</remitente>
+        <texto>el ejercicio 9 esta mal tio</texto>
+    </mensaje>
+    <mensaje>
+        <destinatario>fernando</destinatario>
+        <fecha>2024-10-28T16:52:53.676491400</fecha>
+        <remitente>user</remitente>
+        <texto>0.5 menos </texto>
+    </mensaje>
+    <mensaje>
+        <destinatario>user</destinatario>
+        <fecha>2024-10-28T16:53:51.754563400</fecha>
+        <remitente>fernando</remitente>
+        <texto>vaya hombre</texto>
+    </mensaje>
+    <mensaje>
+        <destinatario>user</destinatario>
+        <fecha>2024-10-28T16:54:42.491316500</fecha>
+        <remitente>fernando</remitente>
+        <texto>tu no seras Perro Sanches no?</texto>
+    </mensaje>
+    <mensaje>
+        <destinatario>user</destinatario>
+        <fecha>2024-10-28T16:54:58.119456900</fecha>
+        <remitente>fernando</remitente>
+        <texto>recortando de donde no hay no?</texto>
+    </mensaje>
+    <mensaje>
+        <destinatario>user</destinatario>
+        <fecha>2024-10-28T17:41:44.847846800</fecha>
+        <remitente>user</remitente>
+        <texto>prueba</texto>
+    </mensaje>
 </mensajes>

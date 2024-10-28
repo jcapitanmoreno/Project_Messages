@@ -37,7 +37,7 @@ public class LoginController {
 
 
             String contrasenaHashed = PasswordUtils.hashPassword(contrasena);
-            if (usuario != null && usuario.getContraseña().equals(contrasenaHashed)) {
+            if (usuario != null && usuario.getContrasena().equals(contrasenaHashed)) {
                 UsuarioActual.getInstancia().setUsuario(usuario);
                 ChatController.mostrarChat((Stage) loginUsuarioField.getScene().getWindow());
             } else {

@@ -4,6 +4,13 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class PasswordUtils {
+
+    /**
+     * Método que genera un hash SHA-256 a partir de una contraseña dada.
+     *
+     * @param password La contraseña en texto plano que se desea hashear.
+     * @return El hash de la contraseña en formato hexadecimal.
+     */
     public static String hashPassword(String password) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
