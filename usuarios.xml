@@ -32,4 +32,8 @@
         <contraseña>capi</contraseña>
         <nombre>capi</nombre>
     </usuario>
+    <usuario>
+        <contraseña>0a041b9462caa4a31bac3567e0b6e6fd9100787db2ab433d96f6d178cabfce90</contraseña>
+        <nombre>user1</nombre>
+    </usuario>
 </usuarios>

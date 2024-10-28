@@ -1,4 +1,4 @@
-package org.example.Model.XMLController;
+package org.example.XMLController;
 
 import org.example.Model.Entity.Mensaje;
 import org.example.Model.Entity.Usuario;

@@ -9,7 +9,7 @@ module org.example {
     requires java.xml;
 
 
-    opens org.example.Model.XMLController to java.xml.bind;
+    opens org.example.XMLController to java.xml.bind;
     opens org.example.Model.Entity to java.xml.bind;
     opens org.example to javafx.fxml;
     opens org.example.View to javafx.fxml;

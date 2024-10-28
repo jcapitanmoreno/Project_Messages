@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 import org.example.Model.Entity.Mensaje;
 import org.example.Model.Entity.Usuario;
 import org.example.Model.UserSingleton.UsuarioActual;
-import org.example.Model.XMLController.XMLHandler;
+import org.example.XMLController.XMLHandler;
 
 import java.io.*;
 import java.util.ArrayList;

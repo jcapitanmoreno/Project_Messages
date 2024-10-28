@@ -8,7 +8,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.example.Model.Entity.Usuario;
 import org.example.Model.UserSingleton.UsuarioActual;
-import org.example.Model.XMLController.XMLHandler;
+import org.example.Utils.PasswordUtils;
+import org.example.XMLController.XMLHandler;
 
 public class LoginController {
     @FXML
@@ -29,12 +30,14 @@ public class LoginController {
     @FXML
     public void iniciarSesion() {
         String nombreUsuario = loginUsuarioField.getText();
-        String contraseña = loginPasswordField.getText();
+        String contrasena = loginPasswordField.getText();
 
         try {
             Usuario usuario = XMLHandler.buscarUsuario(nombreUsuario);
 
-            if (usuario != null && usuario.getContraseña().equals(contraseña)) {
+
+            String contrasenaHashed = PasswordUtils.hashPassword(contrasena);
+            if (usuario != null && usuario.getContraseña().equals(contrasenaHashed)) {
                 UsuarioActual.getInstancia().setUsuario(usuario);
                 ChatController.mostrarChat((Stage) loginUsuarioField.getScene().getWindow());
             } else {
@@ -49,7 +52,7 @@ public class LoginController {
     @FXML
     public void registrarUsuario() {
         String nombreUsuario = registroUsuarioField.getText();
-        String contraseña = registroPasswordField.getText();
+        String contrasena = registroPasswordField.getText();
 
         try {
             Usuario usuarioExistente = XMLHandler.buscarUsuario(nombreUsuario);
@@ -57,7 +60,9 @@ public class LoginController {
                 mostrarAdvertencia("El usuario ya está registrado", "El nombre de usuario introducido ya está registrado.");
                 registroErrorLabel.setText("Usuario ya registrado");
             } else {
-                Usuario nuevoUsuario = new Usuario(nombreUsuario, contraseña);
+
+                String contrasenaHashed = PasswordUtils.hashPassword(contrasena);
+                Usuario nuevoUsuario = new Usuario(nombreUsuario, contrasenaHashed);
                 XMLHandler.registrarUsuario(nuevoUsuario);
                 mostrarExito("Usuario registrado", "El usuario ha sido registrado exitosamente.");
                 registroErrorLabel.setText("");

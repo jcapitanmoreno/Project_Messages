@@ -78,4 +78,10 @@
         <remitente>pepe</remitente>
         <texto>adadadadadfgsdgsgfswg</texto>
     </mensaje>
+    <mensaje>
+        <destinatario>hola</destinatario>
+        <fecha>2024-10-28T15:41:53.803835400</fecha>
+        <remitente>user</remitente>
+        <texto>hola hola hola hola hgoola,.m</texto>
+    </mensaje>
 </mensajes>
