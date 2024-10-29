@@ -42,7 +42,7 @@ public class ChatController {
     @FXML
     public void initialize() {
         cargarUsuarios();
-        configurarEscuchadorUsuarios();
+        EscuchadorUsuarios();
         mostrarAnalisis();
     }
 
@@ -92,7 +92,7 @@ public class ChatController {
      * Al hacer doble clic en un usuario, se limpian los mensajes
      * y se cargan los mensajes de la conversación con ese usuario.
      */
-    private void configurarEscuchadorUsuarios() {
+    private void EscuchadorUsuarios() {
         usuariosList.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) {
                 clearMessageArea();
